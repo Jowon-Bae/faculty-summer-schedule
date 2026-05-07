@@ -23,4 +23,6 @@ export const STAFF_LIST: Staff[] = [
   { id: '15', name: '장은혜', department: '교역자', role: '전도사' },
   { id: '16', name: '선우진', department: '교역자', role: '전도사' },
   { id: '17', name: '문현철', department: '교역자', role: '목사' },
+  { id: '18', name: '김은정', department: '교역자', role: '간사' },
+  { id: '19', name: '배지철', department: '교역자', role: '간사' },
 ];
