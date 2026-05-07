@@ -29,7 +29,7 @@ function App() {
     <div className="app-container">
       {/* Header */}
       <header className="header">
-        <img src="/logo.png" alt="Seoul Dream Church" style={{ height: '10.4px', objectFit: 'contain' }} />
+        <img src="/logo.png" alt="Seoul Dream Church" style={{ height: '11.4px', objectFit: 'contain' }} />
       </header>
 
       {/* Main Title Area */}
