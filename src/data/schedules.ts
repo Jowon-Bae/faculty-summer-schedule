@@ -20,8 +20,7 @@ export const SCHEDULES: Schedule[] = [
   { id: 'v6', type: '휴가', startDate: '2026-08-10', endDate: '2026-08-22', participants: ['11', '12'], location: '개인일정' },
   { id: 'v7', type: '휴가', startDate: '2026-08-17', endDate: '2026-08-29', participants: ['13', '14'], location: '개인일정' },
   { id: 'v8', type: '휴가', startDate: '2026-08-24', endDate: '2026-09-05', participants: ['15', '16', '17'], location: '개인일정' },
-  { id: 'v9', type: '휴가', startDate: '2026-07-20', endDate: '2026-08-01', participants: ['18'], location: '개인일정' },
-  { id: 'v10', type: '휴가', startDate: '2026-07-20', endDate: '2026-08-01', participants: ['21'], location: '개인일정' },
+  { id: 'v9', type: '휴가', startDate: '2026-07-20', endDate: '2026-08-01', participants: ['18', '21'], location: '개인일정' },
 
   // 아웃리치
   { id: 'o1', type: '아웃리치', startDate: '2026-06-25', endDate: '2026-07-01', participants: ['10'], location: '태국' },
