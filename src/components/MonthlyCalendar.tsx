@@ -52,7 +52,15 @@ export function MonthlyCalendar({ selectedDate, onSelectDate }: MonthlyCalendarP
       const sStartNorm = new Date(sStart.getFullYear(), sStart.getMonth(), sStart.getDate());
       const sEndNorm = new Date(sEnd.getFullYear(), sEnd.getMonth(), sEnd.getDate());
 
-      if (s.participants.length === 0) {
+      if (s.customLabel) {
+        events.push({
+          id: s.id,
+          name: s.customLabel,
+          type: s.type,
+          startDate: sStartNorm,
+          endDate: sEndNorm,
+        });
+      } else if (s.participants.length === 0) {
         const displayName = s.location ? `${s.location} ${s.type}` : s.type;
         events.push({
           id: s.id,
