@@ -78,7 +78,7 @@ export function StaffShortageAlert() {
     }}>
       <AlertTriangle size={16} style={{ flexShrink: 0, marginTop: '2px', color: '#DC2626' }} />
       <div style={{ fontSize: '0.75rem', lineHeight: '1.3', letterSpacing: '-0.02em' }}>
-        <strong style={{ fontSize: '0.8rem', display: 'block', marginBottom: '3px', color: '#7F1D1D' }}>주말 교직원 공백 알림</strong>
+        <strong style={{ fontSize: '0.8rem', display: 'block', marginBottom: '3px', color: '#7F1D1D' }}>주말 교직원 공백 알림(가장 인원이 적은 날)</strong>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
           <div><span style={{ opacity: 0.85 }}>금:</span> <strong>{shortageFridaysStr}</strong> (잔여 {minFridayCount}명)</div>
           <div><span style={{ opacity: 0.85 }}>주일:</span> <strong>{shortageSundaysStr}</strong> (잔여 {minSundayCount}명)</div>
