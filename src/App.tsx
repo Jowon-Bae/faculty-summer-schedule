@@ -4,6 +4,7 @@ import { ko } from 'date-fns/locale';
 import { MonthlyCalendar } from './components/MonthlyCalendar';
 import { OnDutyList } from './components/OnDutyList';
 import { GroupedScheduleList } from './components/GroupedScheduleList';
+import { StaffShortageAlert } from './components/StaffShortageAlert';
 import { SCHEDULES } from './data/schedules';
 import { Calendar, Users } from 'lucide-react';
 import './App.css';
@@ -34,6 +35,7 @@ function App() {
 
       {/* Monthly Calendar */}
       <div className="content-padding" style={{ paddingBottom: '0' }}>
+        <StaffShortageAlert />
         <MonthlyCalendar selectedDate={selectedDate} onSelectDate={setSelectedDate} />
       </div>
 
