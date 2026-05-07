@@ -26,6 +26,12 @@ export const SCHEDULES: Schedule[] = [
   { id: 'o2', type: '아웃리치', startDate: '2026-07-16', endDate: '2026-07-23', participants: ['7', '13'], location: '르완다' },
   { id: 'o3', type: '아웃리치', startDate: '2026-08-11', endDate: '2026-08-19', participants: ['3'], location: '네팔' },
   { id: 'o4', type: '아웃리치', startDate: '2026-08-14', endDate: '2026-08-19', participants: ['1', '6', '15'], location: '필리핀, 캄보디아' },
+  { id: 'o5', type: '아웃리치', startDate: '2026-07-10', endDate: '2026-07-12', participants: ['21'], location: '누가공동체' },
+  { id: 'o6', type: '아웃리치', startDate: '2026-07-17', endDate: '2026-07-19', participants: ['11'], location: '마태공동체' },
+  { id: 'o7', type: '아웃리치', startDate: '2026-07-31', endDate: '2026-08-02', participants: ['1'], location: '마가공동체' },
+  { id: 'o8', type: '아웃리치', startDate: '2026-08-07', endDate: '2026-08-09', participants: ['8'], location: '다니엘공동체' },
+  { id: 'o9', type: '아웃리치', startDate: '2026-08-14', endDate: '2026-08-16', participants: ['17'], location: '요한공동체' },
+  { id: 'o10', type: '아웃리치', startDate: '2026-08-28', endDate: '2026-08-30', participants: ['3', '7', '10', '2'], location: '넥스트드림' },
 
   // 캠프
   { id: 'c1', type: '캠프', startDate: '2026-07-03', endDate: '2026-07-04', participants: ['5'], location: '성수연합차세대' },
