@@ -29,16 +29,16 @@ function App() {
     <div className="app-container">
       {/* Header */}
       <header className="header">
-        <img src="/logo.png" alt="Seoul Dream Church" style={{ height: '9px', objectFit: 'contain' }} />
+        <img src="/logo.png" alt="Seoul Dream Church" style={{ height: '10.4px', objectFit: 'contain' }} />
       </header>
 
       {/* Main Title Area */}
       <div className="content-padding" style={{ paddingBottom: '0', paddingTop: '4px' }}>
         <div style={{ marginBottom: '24px' }}>
           <h1 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--color-primary-deep)', lineHeight: '1.3', letterSpacing: '-0.03em', marginBottom: '4px' }}>
-            2026 서울드림교회 교직원 여름 스케줄
+            2026 교직원 여름 스케줄
           </h1>
-          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', fontWeight: 500 }}>
+          <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: 500 }}>
             Professional & Refreshing Summer
           </p>
         </div>
