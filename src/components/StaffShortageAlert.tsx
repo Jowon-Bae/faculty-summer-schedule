@@ -68,27 +68,21 @@ export function StaffShortageAlert() {
     <div className="fade-in" style={{
       display: 'flex',
       alignItems: 'flex-start',
-      gap: '12px',
+      gap: '8px',
       backgroundColor: '#FEF2F2',
       border: '1px solid #FCA5A5',
       borderRadius: '8px',
-      padding: '16px',
-      marginBottom: '16px',
+      padding: '10px 12px',
+      marginBottom: '12px',
       color: '#991B1B'
     }}>
-      <AlertTriangle size={24} style={{ flexShrink: 0, marginTop: '2px' }} />
-      <div style={{ fontSize: '0.875rem', lineHeight: '1.5' }}>
-        <strong style={{ fontSize: '0.95rem' }}>⚠️ 주말 교직원 공백 알림</strong>
-        <ul style={{ margin: '8px 0 0 0', paddingLeft: '20px' }}>
-          <li>
-            <strong>금요일</strong> 중 가장 인원이 적은 날: <br/>
-            <strong>{shortageFridaysStr}</strong> (잔여 {minFridayCount}명)
-          </li>
-          <li style={{ marginTop: '4px' }}>
-            <strong>주일</strong> 중 가장 인원이 적은 날: <br/>
-            <strong>{shortageSundaysStr}</strong> (잔여 {minSundayCount}명)
-          </li>
-        </ul>
+      <AlertTriangle size={16} style={{ flexShrink: 0, marginTop: '2px', color: '#DC2626' }} />
+      <div style={{ fontSize: '0.75rem', lineHeight: '1.3', letterSpacing: '-0.02em' }}>
+        <strong style={{ fontSize: '0.8rem', display: 'block', marginBottom: '3px', color: '#7F1D1D' }}>주말 교직원 공백 알림</strong>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+          <div><span style={{ opacity: 0.85 }}>금:</span> <strong>{shortageFridaysStr}</strong> (잔여 {minFridayCount}명)</div>
+          <div><span style={{ opacity: 0.85 }}>주일:</span> <strong>{shortageSundaysStr}</strong> (잔여 {minSundayCount}명)</div>
+        </div>
       </div>
     </div>
   );
