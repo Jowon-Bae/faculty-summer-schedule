@@ -62,27 +62,29 @@ export function MonthlyCalendar({ selectedDate, onSelectDate }: MonthlyCalendarP
           endDate: sEndNorm,
         });
       } else {
-        s.participants.forEach(pid => {
-          const staff = STAFF_LIST.find(st => st.id === pid);
-          if (staff) {
-            let displayName = staff.name;
-            if (s.type === '휴가') {
-              displayName = `${staff.name} 휴가`;
-            } else if (s.type === '아웃리치') {
-              displayName = `${staff.name} ${s.location} 아웃리치`;
-            } else {
-              displayName = `${staff.name} ${s.location} ${s.type}`;
-            }
-
-            events.push({
-              id: `${s.id}-${pid}`,
-              name: displayName,
-              type: s.type,
-              startDate: sStartNorm,
-              endDate: sEndNorm,
-            });
+        const names = s.participants
+          .map(pid => STAFF_LIST.find(st => st.id === pid)?.name)
+          .filter(Boolean)
+          .join(', ');
+          
+        if (names) {
+          let displayName = names;
+          if (s.type === '휴가') {
+            displayName = `${names} 휴가`;
+          } else if (s.type === '아웃리치') {
+            displayName = `${names} ${s.location} 아웃리치`;
+          } else {
+            displayName = `${names} ${s.location} ${s.type}`;
           }
-        });
+
+          events.push({
+            id: s.id,
+            name: displayName,
+            type: s.type,
+            startDate: sStartNorm,
+            endDate: sEndNorm,
+          });
+        }
       }
     });
     // 정렬: 시작일 빠른 순, 기간 긴 순
