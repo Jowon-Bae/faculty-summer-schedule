@@ -28,4 +28,5 @@ export const STAFF_LIST: Staff[] = [
   { id: '20', name: '모한샘', department: '교역자', role: '전도사' },
   { id: '21', name: '김강림', department: '교역자', role: '목사' },
   { id: '22', name: '황민식', department: '교역자', role: '간사' },
+  { id: '23', name: '김여호수아', department: '교역자', role: '목사' },
 ];
