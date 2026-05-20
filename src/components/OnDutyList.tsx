@@ -14,7 +14,7 @@ export function OnDutyList({ activeSchedules }: OnDutyListProps) {
 
   // 2. 대상 교직원 중 가능한 사람 필터링 (교역자 및 간사 한정)
   const availableStaff = STAFF_LIST.filter(staff => {
-    const isTarget = staff.department === '교역자' || staff.role.includes('간사');
+    const isTarget = staff.department === '교역자' || staff.department === '담임목사' || staff.role.includes('간사');
     return isTarget && !busyStaffIds.has(staff.id);
   });
 
@@ -33,12 +33,25 @@ export function OnDutyList({ activeSchedules }: OnDutyListProps) {
     onDutyStaffByRole[role].sort((a, b) => a.name.localeCompare(b.name, 'ko-KR'));
   });
 
-  // 5. 표시할 직분 순서 (목사 -> 전도사 -> 간사)
+  // 5. 표시할 직분 순서 (담임목사 -> 목사 -> 전도사 -> 간사)
+  const SENIOR_PASTOR_LABEL = '담임목사';
   const roleOrder = ['목사', '전도사', '간사'];
-  const existingRoles = Object.keys(onDutyStaffByRole);
+
+  // 담임목사 분리
+  const seniorPastorStaff = availableStaff.filter(s => s.department === SENIOR_PASTOR_LABEL);
+  const seniorGroup = seniorPastorStaff.length > 0 ? { [SENIOR_PASTOR_LABEL]: seniorPastorStaff } : {};
+
+  // 나머지 교역자 역할별 그룹
+  const existingRoles = Object.keys(onDutyStaffByRole).filter(r => r !== SENIOR_PASTOR_LABEL);
   const sortedRoles = [
     ...roleOrder.filter(r => existingRoles.includes(r)),
     ...existingRoles.filter(r => !roleOrder.includes(r)).sort()
+  ];
+
+  // 최종 렌더링 목록: 담임목사 → 일반 그룹
+  const allGroupEntries: [string, typeof STAFF_LIST][] = [
+    ...(seniorPastorStaff.length > 0 ? [[SENIOR_PASTOR_LABEL, seniorPastorStaff] as [string, typeof STAFF_LIST]] : []),
+    ...sortedRoles.map(r => [r, onDutyStaffByRole[r]] as [string, typeof STAFF_LIST]),
   ];
 
   if (availableStaff.length === 0) {
@@ -52,11 +65,9 @@ export function OnDutyList({ activeSchedules }: OnDutyListProps) {
   return (
     <div className="card fade-in" style={{ padding: '20px 16px' }}>
       <div className="flex-column gap-4">
-        {sortedRoles.map((role, idx) => {
-          const staffList = onDutyStaffByRole[role];
-          
+        {allGroupEntries.map(([label, staffList], idx) => {
           return (
-            <div key={role}>
+            <div key={label}>
               {/* 직분 타이틀 */}
               <div 
                 style={{ 
@@ -67,7 +78,7 @@ export function OnDutyList({ activeSchedules }: OnDutyListProps) {
                 }}
               >
                 <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--color-primary-deep)' }}>
-                  {role}
+                  {label}
                 </h3>
                 <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
                   ({staffList.length}명)
@@ -92,7 +103,7 @@ export function OnDutyList({ activeSchedules }: OnDutyListProps) {
               </div>
               
               {/* 구분선 (마지막 항목 제외) */}
-              {idx < sortedRoles.length - 1 && (
+              {idx < allGroupEntries.length - 1 && (
                 <div style={{ margin: '18px 0 14px 0', borderBottom: '1px solid var(--color-border)' }} />
               )}
             </div>
