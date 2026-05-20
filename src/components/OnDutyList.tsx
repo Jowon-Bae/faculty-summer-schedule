@@ -18,8 +18,9 @@ export function OnDutyList({ activeSchedules }: OnDutyListProps) {
     return isTarget && !busyStaffIds.has(staff.id);
   });
 
-  // 3. 직분(Role) 기준으로 그룹화
+  // 3. 직분(Role) 기준으로 그룹화 (담임목사 제외)
   const onDutyStaffByRole = availableStaff.reduce((acc, staff) => {
+    if (staff.department === '담임목사') return acc; // 담임목사는 별도 섹션 처리
     const role = staff.role;
     if (!acc[role]) {
       acc[role] = [];
