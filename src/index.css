@@ -13,6 +13,9 @@
   --color-tag-vacation-bg: #DBEAFE;
   --color-tag-vacation-text: #1E40AF;
   
+  --color-tag-senior-bg: #EDE9FE;
+  --color-tag-senior-text: #5B21B6;
+  
   --color-tag-outreach-bg: #DCFCE7;
   --color-tag-outreach-text: #166534;
   
@@ -147,6 +150,7 @@ body {
 }
 
 .tag-휴가 { background: var(--color-tag-vacation-bg); color: var(--color-tag-vacation-text); }
+.tag-담임목사휴가 { background: var(--color-tag-senior-bg); color: var(--color-tag-senior-text); }
 .tag-아웃리치 { background: var(--color-tag-outreach-bg); color: var(--color-tag-outreach-text); }
 .tag-수련회 { background: var(--color-tag-retreat-bg); color: var(--color-tag-retreat-text); }
 .tag-캠프 { background: var(--color-tag-camp-bg); color: var(--color-tag-camp-text); }

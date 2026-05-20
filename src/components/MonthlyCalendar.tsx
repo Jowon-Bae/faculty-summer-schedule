@@ -74,7 +74,13 @@ export function MonthlyCalendar({ selectedDate, onSelectDate }: MonthlyCalendarP
           .map(pid => STAFF_LIST.find(st => st.id === pid)?.name)
           .filter(Boolean)
           .join(', ');
-          
+
+        // 담임목사 여부 판단
+        const isSeniorPastorVacation =
+          s.type === '휴가' &&
+          s.participants.length > 0 &&
+          s.participants.every(pid => STAFF_LIST.find(st => st.id === pid)?.department === '담임목사');
+
         if (names) {
           let displayName = names;
           if (s.type === '휴가') {
@@ -88,7 +94,7 @@ export function MonthlyCalendar({ selectedDate, onSelectDate }: MonthlyCalendarP
           events.push({
             id: s.id,
             name: displayName,
-            type: s.type,
+            type: isSeniorPastorVacation ? '담임목사휴가' : s.type,
             startDate: sStartNorm,
             endDate: sEndNorm,
           });
