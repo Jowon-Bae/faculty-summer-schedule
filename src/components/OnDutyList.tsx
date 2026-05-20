@@ -39,7 +39,6 @@ export function OnDutyList({ activeSchedules }: OnDutyListProps) {
 
   // 담임목사 분리
   const seniorPastorStaff = availableStaff.filter(s => s.department === SENIOR_PASTOR_LABEL);
-  const seniorGroup = seniorPastorStaff.length > 0 ? { [SENIOR_PASTOR_LABEL]: seniorPastorStaff } : {};
 
   // 나머지 교역자 역할별 그룹
   const existingRoles = Object.keys(onDutyStaffByRole).filter(r => r !== SENIOR_PASTOR_LABEL);
