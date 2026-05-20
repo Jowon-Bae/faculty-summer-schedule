@@ -37,7 +37,7 @@ export const SCHEDULES: Schedule[] = [
   { id: 'o10', type: '아웃리치', startDate: '2026-08-28', endDate: '2026-08-30', participants: ['3', '7', '10', '2'], location: '넥스트드림' },
 
   // 캠프
-  { id: 'c1', type: '캠프', startDate: '2026-07-03', endDate: '2026-07-04', participants: ['5'], location: '성수연합차세대' },
+  { id: 'c1', type: '캠프', startDate: '2026-07-03', endDate: '2026-07-04', participants: ['5', '8', '16', '17', '15', '13', '6', '20', '4'], location: '성수연합차세대' },
   { id: 'c2_1', type: '캠프', startDate: '2026-07-24', endDate: '2026-07-26', participants: ['8', '15', '4'], location: '드림키즈' },
   { id: 'c2_2', type: '캠프', startDate: '2026-07-24', endDate: '2026-07-26', participants: ['17', '6', '20'], location: '드림틴즈' },
   { id: 'c3', type: '캠프', startDate: '2026-08-07', endDate: '2026-08-09', participants: ['17', '16', '13'], location: '올스타' },
