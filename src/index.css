@@ -154,7 +154,7 @@ body {
 .tag-아웃리치 { background: var(--color-tag-outreach-bg); color: var(--color-tag-outreach-text); }
 .tag-수련회 { background: var(--color-tag-retreat-bg); color: var(--color-tag-retreat-text); }
 .tag-캠프 { background: var(--color-tag-camp-bg); color: var(--color-tag-camp-text); }
-.tag-기타-사역 { background: #F3F4F6; color: #374151; }
+.tag-기타-사역 { background: #FEE2E2; color: #B91C1C; }
 
 .section-title {
   font-size: 1.125rem;
