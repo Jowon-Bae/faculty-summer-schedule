@@ -228,7 +228,7 @@ export function MonthlyCalendar({ selectedDate, onSelectDate }: MonthlyCalendarP
               {renderedEvents.map((ev, idx) => (
                 <div
                   key={`${ev.id}-${weekIdx}-${idx}`}
-                  className={`spanning-event-bar tag-${ev.type}`}
+                  className={`spanning-event-bar tag-${ev.type.replace(' ', '-')}`}
                   style={{
                     gridColumn: `${ev.startCol} / ${ev.endCol}`,
                     gridRow: ev.rowIdx + 2, // +2 because row 1 is dates
