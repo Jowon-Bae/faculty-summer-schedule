@@ -26,7 +26,7 @@ export function GroupedScheduleList({ schedules }: GroupedScheduleListProps) {
   }, {} as Record<string, Schedule[]>);
 
   // 정해진 순서대로 출력 (휴가 -> 아웃리치 -> 캠프 -> 수련회)
-  const typeOrder = ['휴가', '아웃리치', '캠프', '수련회'];
+  const typeOrder = ['휴가', '아웃리치', '캠프', '수련회', '기타 사역'];
   const existingTypes = Object.keys(grouped);
   const sortedTypes = [
     ...typeOrder.filter(t => existingTypes.includes(t)),
@@ -41,7 +41,7 @@ export function GroupedScheduleList({ schedules }: GroupedScheduleListProps) {
           <div key={type} className="card fade-in" style={{ padding: '16px' }}>
             {/* 상단 태그 */}
             <div style={{ marginBottom: '14px' }}>
-              <span className={`tag tag-${type}`} style={{ padding: '4px 10px', fontSize: '0.75rem', borderRadius: '6px', fontWeight: 600 }}>
+              <span className={`tag tag-${type.replace(' ', '-')}`} style={{ padding: '4px 10px', fontSize: '0.75rem', borderRadius: '6px', fontWeight: 600 }}>
                 {type}
               </span>
             </div>
