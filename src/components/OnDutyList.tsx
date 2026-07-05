@@ -29,6 +29,10 @@ export function OnDutyList({ activeSchedules }: OnDutyListProps) {
     return acc;
   }, {} as Record<string, typeof STAFF_LIST>);
 
+  if (!onDutyStaffByRole['전도사']) {
+    onDutyStaffByRole['전도사'] = [];
+  }
+
   // 4. 각 그룹 내에서 이름 '가나다' 순 정렬
   Object.keys(onDutyStaffByRole).forEach(role => {
     onDutyStaffByRole[role].sort((a, b) => a.name.localeCompare(b.name, 'ko-KR'));
