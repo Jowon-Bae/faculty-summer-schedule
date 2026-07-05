@@ -16,7 +16,7 @@ export const SCHEDULES: Schedule[] = [
   { id: 'v2', type: '휴가', startDate: '2026-07-06', endDate: '2026-07-18', participants: ['2'], location: '개인일정' },
   { id: 'v3', type: '휴가', startDate: '2026-07-13', endDate: '2026-07-25', participants: ['3'], location: '개인일정' },
   { id: 'v4', type: '휴가', startDate: '2026-07-27', endDate: '2026-08-08', participants: ['4', '5', '6', '7', '22'], location: '개인일정' },
-  { id: 'v5', type: '휴가', startDate: '2026-08-03', endDate: '2026-08-15', participants: ['8', '9', '10'], location: '개인일정' },
+  { id: 'v5', type: '휴가', startDate: '2026-08-03', endDate: '2026-08-15', participants: ['8', '10'], location: '개인일정' },
   { id: 'v6', type: '휴가', startDate: '2026-08-10', endDate: '2026-08-22', participants: ['11'], location: '개인일정' },
   { id: 'v12', type: '휴가', startDate: '2026-08-17', endDate: '2026-08-22', participants: ['12'], location: '개인일정' },
   { id: 'v13', type: '휴가', startDate: '2026-09-06', endDate: '2026-09-12', participants: ['12'], location: '개인일정' },
