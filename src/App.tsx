@@ -10,8 +10,8 @@ import { Calendar, Users } from 'lucide-react';
 import './App.css';
 
 function App() {
-  // 앱 실행 시 기본 선택 날짜를 2026년 6월 1일로 설정
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date(2026, 5, 1));
+  // 앱 실행 시 기본 선택 날짜를 현재 날짜로 설정
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
   // 현재 진행 중인 일정 필터링
   const activeSchedules = SCHEDULES.filter((s) => {
