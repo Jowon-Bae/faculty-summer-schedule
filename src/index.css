@@ -51,7 +51,8 @@ body {
 
 /* Base utility classes for layout */
 .app-container {
-  max-width: 480px; /* Mobile width */
+  max-width: 480px;
+  padding-bottom: 80px; /* Mobile width */
   margin: 0 auto;
   min-height: 100vh;
   background-color: var(--color-surface);
@@ -264,4 +265,51 @@ body {
 
 .icon-button:hover {
   background-color: var(--color-background);
+}
+
+
+/* Bottom Navigation */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+  z-index: 50;
+  height: calc(64px + env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 -4px 6px -1px rgb(0 0 0 / 0.05);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 100%;
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.2s;
+  background: transparent;
+  border: none;
+  padding-top: 8px;
+}
+
+.nav-item:active {
+  transform: scale(0.95);
+}
+
+.nav-item.active {
+  color: var(--color-primary-deep);
+  font-weight: 700;
 }
