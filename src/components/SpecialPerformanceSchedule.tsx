@@ -3,7 +3,7 @@ import { format, nextSunday, previousSunday, isSunday, parseISO, getMonth } from
 import { ko } from 'date-fns/locale';
 import { SCHEDULES, type Schedule } from '../data/schedules';
 import { STAFF_LIST } from '../data/staff';
-import { Star } from 'lucide-react';
+import { Star, Download } from 'lucide-react';
 
 type ServiceType = '1부 예배' | '2부 예배' | '3부 예배' | '성수 예배';
 
@@ -182,13 +182,70 @@ export function SpecialPerformanceSchedule() {
 
   const SERVICE_ORDER: ServiceType[] = ['1부 예배', '2부 예배', '3부 예배', '성수 예배'];
 
+
+  const downloadCSV = () => {
+    const headers = ['날짜', '예배', '분류', '내용', '일정', '참가자'];
+    const rows: string[][] = [];
+    
+    groupedEvents.forEach(({ date, serviceMap }) => {
+      const dateStr = format(date, 'yyyy-MM-dd');
+      SERVICE_ORDER.forEach(svc => {
+        serviceMap[svc].forEach(e => {
+          const titleSuffix = e.outreach?.type === '캠프' ? ' 캠프' : ' 아웃리치팀';
+          const titleText = e.customTitle 
+            ? e.customTitle 
+            : e.outreach 
+              ? (e.outreach.customLabel || e.outreach.location).replace(/\), /g, ') ') + titleSuffix
+              : '';
+              
+          const outreachDates = e.outreach ? `${format(parseISO(e.outreach.startDate), 'M/d')} ~ ${format(parseISO(e.outreach.endDate), 'M/d')}` : '';
+          const participants = e.outreach ? getStaffNames(e.outreach.participants) : '';
+          
+          rows.push([
+            dateStr,
+            svc,
+            e.eventType,
+            `"${titleText.replace(/\n/g, ' ')}"`,
+            outreachDates,
+            `"${participants}"`
+          ]);
+        });
+      });
+    });
+
+    const csvContent = '\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `스케줄_${format(new Date(), 'yyyyMMdd')}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="fade-in">
       <div style={{ marginBottom: '32px' }}>
-        <h2 className="section-title">
-          <Star size={20} />
-          특순/파송/간증/영상 스케줄
-        </h2>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+          <h2 className="section-title" style={{ marginBottom: 0 }}>
+            <Star size={20} />
+            스케줄
+          </h2>
+          <button 
+            onClick={downloadCSV}
+            style={{ 
+              display: 'flex', alignItems: 'center', gap: '6px', 
+              padding: '6px 12px', borderRadius: '8px', 
+              border: '1px solid var(--color-border)', 
+              backgroundColor: 'white', color: 'var(--color-text-main)',
+              fontSize: '0.85rem', fontWeight: 600, cursor: 'pointer'
+            }}
+          >
+            <Download size={16} />
+            엑셀 다운로드
+          </button>
+        </div>
         <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginBottom: '16px', lineHeight: '1.4' }}>
           출발 전엔 파송/특순, 복귀 후엔 간증과 스케치 영상이 배정됩니다.
         </p>
