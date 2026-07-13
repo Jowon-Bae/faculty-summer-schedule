@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import { format, nextSunday, previousSunday, isSunday, parseISO } from 'date-fns';
+import { useState, useMemo, useEffect } from 'react';
+import { format, nextSunday, previousSunday, isSunday, parseISO, getMonth } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { SCHEDULES, type Schedule } from '../data/schedules';
 import { STAFF_LIST } from '../data/staff';
@@ -137,6 +137,32 @@ export function SpecialPerformanceSchedule() {
       }));
   }, []);
 
+  const availableMonths = useMemo(() => {
+    const months = new Set<number>();
+    groupedEvents.forEach(g => {
+      months.add(getMonth(g.date) + 1);
+    });
+    return Array.from(months).sort((a, b) => a - b);
+  }, [groupedEvents]);
+
+  const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (selectedMonth === null && availableMonths.length > 0) {
+      const currentMonth = new Date().getMonth() + 1;
+      if (availableMonths.includes(currentMonth)) {
+        setSelectedMonth(currentMonth);
+      } else {
+        setSelectedMonth(availableMonths[0]);
+      }
+    }
+  }, [availableMonths, selectedMonth]);
+
+  const filteredEvents = useMemo(() => {
+    if (!selectedMonth) return [];
+    return groupedEvents.filter(g => (getMonth(g.date) + 1) === selectedMonth);
+  }, [groupedEvents, selectedMonth]);
+
   const getStaffNames = (ids: string[]) => {
     return ids
       .map(id => STAFF_LIST.find(s => s.id === id)?.name || '')
@@ -167,13 +193,44 @@ export function SpecialPerformanceSchedule() {
           출발 전엔 파송/특순, 복귀 후엔 간증과 스케치 영상이 배정됩니다.
         </p>
         
+        {availableMonths.length > 0 && (
+          <div style={{
+            display: 'flex',
+            gap: '8px',
+            overflowX: 'auto',
+            paddingBottom: '8px',
+            marginBottom: '16px'
+          }} className="hide-scrollbar">
+            {availableMonths.map(m => (
+              <button
+                key={m}
+                onClick={() => setSelectedMonth(m)}
+                style={{
+                  padding: '6px 16px',
+                  borderRadius: '999px',
+                  border: 'none',
+                  fontWeight: selectedMonth === m ? 700 : 500,
+                  fontSize: '0.9rem',
+                  backgroundColor: selectedMonth === m ? 'var(--color-primary-deep)' : 'var(--color-border)',
+                  color: selectedMonth === m ? 'white' : 'var(--color-text-muted)',
+                  cursor: 'pointer',
+                  flexShrink: 0,
+                  transition: 'all 0.2s'
+                }}
+              >
+                {m}월
+              </button>
+            ))}
+          </div>
+        )}
+        
         <div className="flex-col gap-4">
-          {groupedEvents.length === 0 ? (
+          {filteredEvents.length === 0 ? (
             <div className="card flex-center text-muted" style={{ minHeight: '120px' }}>
-              예정된 일정이 없습니다.
+              해당 월에 예정된 일정이 없습니다.
             </div>
           ) : (
-            groupedEvents.map(({ date, serviceMap }) => {
+            filteredEvents.map(({ date, serviceMap }) => {
               const hasAnyEvents = SERVICE_ORDER.some(svc => serviceMap[svc].length > 0);
               if (!hasAnyEvents) return null;
 
