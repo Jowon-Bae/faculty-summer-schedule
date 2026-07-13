@@ -8,7 +8,8 @@ import { Music } from 'lucide-react';
 type DerivedEvent = {
   id: string;
   date: Date;
-  outreach: Schedule;
+  outreach?: Schedule;
+  customTitle?: string;
   eventType: '파송' | '특순' | '간증';
 };
 
@@ -18,6 +19,8 @@ export function SpecialPerformanceSchedule() {
     const events: DerivedEvent[] = [];
 
     outreaches.forEach(s => {
+      if (s.location === '넥스트드림') return;
+
       // 1. 국내/해외 분류
       // 장소에 '공동체' 또는 '드림'이 포함되면 국내 아웃리치로 간주
       const isDomestic = s.location.includes('공동체') || s.location.includes('드림');
@@ -46,6 +49,16 @@ export function SpecialPerformanceSchedule() {
         eventType: '간증'
       });
     });
+
+    const manualEvents: DerivedEvent[] = [
+      { id: 'm1', date: parseISO('2026-07-26'), customTitle: '드림콰이어 2부', eventType: '특순' },
+      { id: 'm2', date: parseISO('2026-08-09'), customTitle: '드림콰이어 2부', eventType: '특순' },
+      { id: 'm3', date: parseISO('2026-08-16'), customTitle: '드림콰이어 2부', eventType: '특순' },
+      { id: 'm4', date: parseISO('2026-08-16'), customTitle: '드림콰이어 3부', eventType: '특순' },
+      { id: 'm5', date: parseISO('2026-08-23'), customTitle: '드림콰이어 3부', eventType: '특순' },
+      { id: 'm6', date: parseISO('2026-08-30'), customTitle: '드림콰이어 3부', eventType: '특순' },
+    ];
+    events.push(...manualEvents);
 
     // 날짜별로 그룹화
     const groups: Record<string, DerivedEvent[]> = {};
@@ -120,6 +133,11 @@ export function SpecialPerformanceSchedule() {
                 <div className="flex-col gap-4">
                   {events.map((e, idx) => {
                     const tagStyle = getEventTagColor(e.eventType);
+                    const titleText = e.customTitle 
+                      ? e.customTitle 
+                      : e.outreach 
+                        ? (e.outreach.customLabel || e.outreach.location).replace(/\), /g, ')\n') + ' 아웃리치팀'
+                        : '';
                     return (
                       <div key={e.id}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -131,16 +149,20 @@ export function SpecialPerformanceSchedule() {
                               {e.eventType}
                             </span>
                             <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--color-primary-deep)', whiteSpace: 'pre-wrap', lineHeight: '1.4' }}>
-                              {(e.outreach.customLabel || e.outreach.location).replace(/\), /g, ')\n')} 아웃리치팀
+                              {titleText}
                             </span>
                           </div>
-                          <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', display: 'flex', gap: '4px' }}>
-                            <span>일정:</span>
-                            <span>{format(parseISO(e.outreach.startDate), 'M/d')} ~ {format(parseISO(e.outreach.endDate), 'M/d')}</span>
-                          </div>
-                          <div style={{ fontSize: '0.85rem', color: 'var(--color-text-main)' }}>
-                            참가자: {getStaffNames(e.outreach.participants)}
-                          </div>
+                          {e.outreach && (
+                            <>
+                              <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', display: 'flex', gap: '4px' }}>
+                                <span>일정:</span>
+                                <span>{format(parseISO(e.outreach.startDate), 'M/d')} ~ {format(parseISO(e.outreach.endDate), 'M/d')}</span>
+                              </div>
+                              <div style={{ fontSize: '0.85rem', color: 'var(--color-text-main)' }}>
+                                참가자: {getStaffNames(e.outreach.participants)}
+                              </div>
+                            </>
+                          )}
                         </div>
                         {idx < events.length - 1 && (
                           <div style={{ margin: '14px 0 0 0', borderBottom: '1px dashed var(--color-border)' }} />
