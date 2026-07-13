@@ -7,7 +7,7 @@ import { GroupedScheduleList } from './components/GroupedScheduleList';
 import { StaffShortageAlert } from './components/StaffShortageAlert';
 import { SpecialPerformanceSchedule } from './components/SpecialPerformanceSchedule';
 import { SCHEDULES } from './data/schedules';
-import { Calendar, Users, Sparkles } from 'lucide-react';
+import { Calendar, Users, Star } from 'lucide-react';
 import './App.css';
 
 function App() {
@@ -85,7 +85,7 @@ function App() {
           className={`nav-item ${currentTab === 'special' ? 'active' : ''}`}
           onClick={() => setCurrentTab('special')}
         >
-          <Sparkles size={20} />
+          <Star size={20} />
           <span>특순/파송/간증/영상</span>
         </button>
       </nav>

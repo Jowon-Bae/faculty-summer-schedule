@@ -3,7 +3,7 @@ import { format, nextSunday, previousSunday, isSunday, parseISO } from 'date-fns
 import { ko } from 'date-fns/locale';
 import { SCHEDULES, type Schedule } from '../data/schedules';
 import { STAFF_LIST } from '../data/staff';
-import { Sparkles } from 'lucide-react';
+import { Star } from 'lucide-react';
 
 type ServiceType = '1부 예배' | '2부 예배' | '3부 예배' | '성수 예배';
 
@@ -160,7 +160,7 @@ export function SpecialPerformanceSchedule() {
     <div className="fade-in">
       <div style={{ marginBottom: '32px' }}>
         <h2 className="section-title">
-          <Sparkles size={20} />
+          <Star size={20} />
           특순/파송/간증/영상 스케줄
         </h2>
         <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginBottom: '16px', lineHeight: '1.4' }}>
