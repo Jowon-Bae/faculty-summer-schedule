@@ -123,15 +123,15 @@ export function SpecialPerformanceSchedule() {
                     return (
                       <div key={e.id}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
                             <span 
                               className="tag" 
-                              style={{ backgroundColor: tagStyle.bg, color: tagStyle.text }}
+                              style={{ backgroundColor: tagStyle.bg, color: tagStyle.text, flexShrink: 0, whiteSpace: 'nowrap' }}
                             >
                               {e.eventType}
                             </span>
-                            <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--color-primary-deep)' }}>
-                              {e.outreach.customLabel || e.outreach.location} 아웃리치팀
+                            <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--color-primary-deep)', whiteSpace: 'pre-wrap', lineHeight: '1.4' }}>
+                              {(e.outreach.customLabel || e.outreach.location).replace(/\), /g, ')\n')} 아웃리치팀
                             </span>
                           </div>
                           <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', display: 'flex', gap: '4px' }}>
