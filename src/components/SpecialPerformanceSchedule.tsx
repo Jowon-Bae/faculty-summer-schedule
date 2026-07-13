@@ -12,26 +12,42 @@ type DerivedEvent = {
   date: Date;
   outreach?: Schedule;
   customTitle?: string;
-  eventType: '파송' | '특순' | '간증';
+  eventType: '파송' | '특순' | '간증' | '영상';
   services: ServiceType[];
 };
 
 export function SpecialPerformanceSchedule() {
   const groupedEvents = useMemo(() => {
-    const outreaches = SCHEDULES.filter(s => s.type === '아웃리치');
+    const targetSchedules = SCHEDULES.filter(s => s.type === '아웃리치' || s.type === '캠프');
     const events: DerivedEvent[] = [];
     const ALL_SERVICES: ServiceType[] = ['1부 예배', '2부 예배', '3부 예배', '성수 예배'];
 
-    outreaches.forEach(s => {
+    targetSchedules.forEach(s => {
       if (s.location === '넥스트드림') return;
 
+      const endDate = parseISO(s.endDate);
+      const afterSunday = nextSunday(endDate);
+
+      // 캠프 로직
+      if (s.type === '캠프') {
+        events.push({
+          id: `${s.id}-video`,
+          date: afterSunday,
+          outreach: s,
+          eventType: '영상',
+          services: ALL_SERVICES
+        });
+        return;
+      }
+
+      // 아웃리치 로직
       const isDomestic = s.location.includes('공동체') || s.location.includes('드림');
 
       const startDate = parseISO(s.startDate);
       const beforeSunday = isSunday(startDate) ? startDate : previousSunday(startDate);
       
       let sendingServices: ServiceType[] = ['3부 예배'];
-      if (s.location === '마태공동체') {
+      if (s.location === '마태공동체' || s.location === '태국') {
         sendingServices = ['2부 예배'];
       }
       
@@ -43,14 +59,19 @@ export function SpecialPerformanceSchedule() {
         services: sendingServices
       });
 
-      const endDate = parseISO(s.endDate);
-      const afterSunday = nextSunday(endDate);
-
       events.push({
-        id: `${s.id}-after`,
+        id: `${s.id}-after-testimony`,
         date: afterSunday,
         outreach: s,
         eventType: '간증',
+        services: ALL_SERVICES
+      });
+
+      events.push({
+        id: `${s.id}-after-video`,
+        date: afterSunday,
+        outreach: s,
+        eventType: '영상',
         services: ALL_SERVICES
       });
     });
@@ -104,6 +125,7 @@ export function SpecialPerformanceSchedule() {
       case '파송': return { bg: '#DBEAFE', text: '#1E40AF' };
       case '특순': return { bg: '#FEF3C7', text: '#92400E' };
       case '간증': return { bg: '#DCFCE7', text: '#166534' };
+      case '영상': return { bg: '#F3E8FF', text: '#6B21A8' };
       default: return { bg: '#F3F4F6', text: '#374151' };
     }
   };
@@ -117,6 +139,9 @@ export function SpecialPerformanceSchedule() {
           <Music size={20} />
           특순/파송/간증 스케줄
         </h2>
+        <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginBottom: '16px', lineHeight: '1.4' }}>
+          출발 전엔 파송/특순, 복귀 후엔 간증과 스케치 영상이 배정됩니다.
+        </p>
         
         <div className="flex-col gap-4">
           {groupedEvents.length === 0 ? (
@@ -174,10 +199,11 @@ export function SpecialPerformanceSchedule() {
                           <div className="flex-col gap-4">
                             {events.map((e, idx) => {
                               const tagStyle = getEventTagColor(e.eventType);
+                              const titleSuffix = e.outreach?.type === '캠프' ? ' 캠프' : ' 아웃리치팀';
                               const titleText = e.customTitle 
                                 ? e.customTitle 
                                 : e.outreach 
-                                  ? (e.outreach.customLabel || e.outreach.location).replace(/\), /g, ')\n') + ' 아웃리치팀'
+                                  ? (e.outreach.customLabel || e.outreach.location).replace(/\), /g, ')\n') + titleSuffix
                                   : '';
 
                               return (
