@@ -244,7 +244,7 @@ export function SpecialPerformanceSchedule() {
                     </span>
                   </div>
                   
-                  <div className="flex-col" style={{ padding: '12px 16px', gap: '14px' }}>
+                  <div className="flex-col" style={{ padding: '12px 16px', gap: '24px' }}>
                     {SERVICE_ORDER.map(svc => {
                       const events = serviceMap[svc];
                       if (events.length === 0) return null;
@@ -271,7 +271,7 @@ export function SpecialPerformanceSchedule() {
                           </div>
                           
                           <div className="flex-col gap-3">
-                            {events.map((e, idx) => {
+                            {events.map(e => {
                               const tagStyle = getEventTagColor(e.eventType);
                               const titleSuffix = e.outreach?.type === '캠프' ? ' 캠프' : ' 아웃리치팀';
                               const titleText = e.customTitle 
@@ -301,9 +301,7 @@ export function SpecialPerformanceSchedule() {
                                       </div>
                                     )}
                                   </div>
-                                  {idx < events.length - 1 && (
-                                    <div style={{ margin: '10px 0 0 0', borderBottom: '1px dashed var(--color-border)' }} />
-                                  )}
+
                                 </div>
                               );
                             })}
