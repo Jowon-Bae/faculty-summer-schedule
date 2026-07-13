@@ -244,7 +244,7 @@ export function SpecialPerformanceSchedule() {
                     </span>
                   </div>
                   
-                  <div className="flex-col" style={{ padding: '12px 16px', gap: '24px' }}>
+                  <div className="flex-col" style={{ padding: '12px 16px', gap: '40px' }}>
                     {SERVICE_ORDER.map(svc => {
                       const events = serviceMap[svc];
                       if (events.length === 0) return null;
