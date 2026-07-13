@@ -86,7 +86,7 @@ function App() {
           onClick={() => setCurrentTab('special')}
         >
           <Music size={20} />
-          <span>특순 스케줄</span>
+          <span>특순/파송/간증</span>
         </button>
       </nav>
     </div>
