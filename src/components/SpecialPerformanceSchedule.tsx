@@ -237,19 +237,14 @@ export function SpecialPerformanceSchedule() {
               return (
                 <div key={date.toISOString()} className="card" style={{ padding: '0', overflow: 'hidden' }}>
                   <div style={{ 
-                    backgroundColor: 'var(--color-primary-deep)',
-                    color: 'white',
-                    padding: '12px 16px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px'
+                    padding: '12px 16px 4px',
                   }}>
-                    <span style={{ fontWeight: 800, fontSize: '1.1rem' }}>
+                    <span style={{ fontWeight: 800, fontSize: '1.15rem', color: 'var(--color-primary-deep)' }}>
                       {format(date, 'M월 d일', { locale: ko })}
                     </span>
                   </div>
                   
-                  <div className="flex-col" style={{ padding: '16px', gap: '20px' }}>
+                  <div className="flex-col" style={{ padding: '12px 16px', gap: '14px' }}>
                     {SERVICE_ORDER.map(svc => {
                       const events = serviceMap[svc];
                       if (events.length === 0) return null;
@@ -257,27 +252,25 @@ export function SpecialPerformanceSchedule() {
                       return (
                         <div key={svc}>
                           <div style={{ 
-                            fontSize: '0.95rem', 
+                            fontSize: '0.9rem', 
                             fontWeight: 700, 
                             color: 'var(--color-text-main)',
-                            borderBottom: '2px solid var(--color-border)',
-                            paddingBottom: '6px',
-                            marginBottom: '12px',
+                            marginBottom: '6px',
                             display: 'flex',
                             alignItems: 'center',
                             gap: '6px'
                           }}>
                             <span style={{ 
                               display: 'inline-block', 
-                              width: '4px', 
-                              height: '14px', 
+                              width: '3px', 
+                              height: '12px', 
                               backgroundColor: 'var(--color-primary-sky)', 
                               borderRadius: '2px' 
                             }} />
                             {svc}
                           </div>
                           
-                          <div className="flex-col gap-4">
+                          <div className="flex-col gap-3">
                             {events.map((e, idx) => {
                               const tagStyle = getEventTagColor(e.eventType);
                               const titleSuffix = e.outreach?.type === '캠프' ? ' 캠프' : ' 아웃리치팀';
@@ -289,32 +282,27 @@ export function SpecialPerformanceSchedule() {
 
                               return (
                                 <div key={`${e.id}-${svc}`}>
-                                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '6px' }}>
                                       <span 
-                                        className="tag" 
-                                        style={{ backgroundColor: tagStyle.bg, color: tagStyle.text, flexShrink: 0, whiteSpace: 'nowrap' }}
+                                        style={{ color: tagStyle.text, fontWeight: 700, flexShrink: 0, fontSize: '0.9rem' }}
                                       >
-                                        {e.eventType}
+                                        [{e.eventType}]
                                       </span>
-                                      <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--color-primary-deep)', whiteSpace: 'pre-wrap', lineHeight: '1.4' }}>
+                                      <span style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--color-text-main)', whiteSpace: 'pre-wrap', lineHeight: '1.3' }}>
                                         {titleText}
                                       </span>
                                     </div>
                                     {e.outreach && (
-                                      <>
-                                        <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', display: 'flex', gap: '4px' }}>
-                                          <span>일정:</span>
-                                          <span>{format(parseISO(e.outreach.startDate), 'M/d')} ~ {format(parseISO(e.outreach.endDate), 'M/d')}</span>
-                                        </div>
-                                        <div style={{ fontSize: '0.85rem', color: 'var(--color-text-main)' }}>
-                                          참가자: {getStaffNames(e.outreach.participants)}
-                                        </div>
-                                      </>
+                                      <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginTop: '2px' }}>
+                                        {format(parseISO(e.outreach.startDate), 'M/d')} ~ {format(parseISO(e.outreach.endDate), 'M/d')}
+                                        <span style={{ margin: '0 6px', color: 'var(--color-border)' }}>|</span>
+                                        {getStaffNames(e.outreach.participants)}
+                                      </div>
                                     )}
                                   </div>
                                   {idx < events.length - 1 && (
-                                    <div style={{ margin: '14px 0 0 0', borderBottom: '1px dashed var(--color-border)' }} />
+                                    <div style={{ margin: '10px 0 0 0', borderBottom: '1px dashed var(--color-border)' }} />
                                   )}
                                 </div>
                               );
