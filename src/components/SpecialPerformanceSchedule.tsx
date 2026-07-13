@@ -3,7 +3,7 @@ import { format, nextSunday, previousSunday, isSunday, parseISO } from 'date-fns
 import { ko } from 'date-fns/locale';
 import { SCHEDULES, type Schedule } from '../data/schedules';
 import { STAFF_LIST } from '../data/staff';
-import { Music } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 type ServiceType = '1부 예배' | '2부 예배' | '3부 예배' | '성수 예배';
 
@@ -84,6 +84,30 @@ export function SpecialPerformanceSchedule() {
       { id: 'm5', date: parseISO('2026-08-23'), customTitle: '드림콰이어 3부', eventType: '특순', services: ['3부 예배'] },
       { id: 'm6', date: parseISO('2026-08-30'), customTitle: '드림콰이어 3부', eventType: '특순', services: ['3부 예배'] },
     ];
+    
+    let current = parseISO('2026-09-06');
+    const end = parseISO('2026-10-25');
+    while (current <= end) {
+      manualEvents.push({
+        id: `dc2-${format(current, 'MMdd')}`,
+        date: current,
+        customTitle: '드림콰이어 2부',
+        eventType: '특순',
+        services: ['2부 예배']
+      });
+      
+      if (format(current, 'yyyy-MM-dd') !== '2026-10-11') {
+        manualEvents.push({
+          id: `dc3-${format(current, 'MMdd')}`,
+          date: current,
+          customTitle: '드림콰이어 3부',
+          eventType: '특순',
+          services: ['3부 예배']
+        });
+      }
+      
+      current = nextSunday(current);
+    }
     events.push(...manualEvents);
 
     const groups: Record<string, Record<ServiceType, DerivedEvent[]>> = {};
@@ -136,8 +160,8 @@ export function SpecialPerformanceSchedule() {
     <div className="fade-in">
       <div style={{ marginBottom: '32px' }}>
         <h2 className="section-title">
-          <Music size={20} />
-          특순/파송/간증 스케줄
+          <Sparkles size={20} />
+          특순/파송/간증/영상 스케줄
         </h2>
         <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginBottom: '16px', lineHeight: '1.4' }}>
           출발 전엔 파송/특순, 복귀 후엔 간증과 스케치 영상이 배정됩니다.
