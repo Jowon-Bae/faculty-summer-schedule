@@ -46,6 +46,7 @@ export const SCHEDULES: Schedule[] = [
   { id: 'r5', type: '기타 사역', startDate: '2026-08-24', endDate: '2026-09-04', participants: ['23'], location: '아프리카 선교지 방문' },
   { id: 'r6', type: '기타 사역', startDate: '2026-07-06', endDate: '2026-07-11', participants: ['24', '21'], location: '백두산 여행' },
   { id: 'r7', type: '기타 사역', startDate: '2026-07-13', endDate: '2026-07-17', participants: ['23'], location: '일본 일정' },
+  { id: 'r8', type: '기타 사역', startDate: '2026-07-30', endDate: '2026-08-01', participants: ['8'], location: '코너스톤' },
 
   // 캠프
   { id: 'c1', type: '캠프', startDate: '2026-07-17', endDate: '2026-07-18', participants: ['5', '8', '16', '17', '15', '13', '6', '20', '4', '14'], location: '성수연합차세대' },
