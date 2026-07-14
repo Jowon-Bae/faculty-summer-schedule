@@ -19,7 +19,7 @@ type DerivedEvent = {
 export function SpecialPerformanceSchedule() {
   const groupedEvents = useMemo(() => {
     const targetSchedules = SCHEDULES.filter(s => s.type === '아웃리치' || s.type === '캠프');
-    const events: DerivedEvent[] = [];
+    let events: DerivedEvent[] = [];
     const ALL_SERVICES: ServiceType[] = ['1부 예배', '2부 예배', '3부 예배', '성수 예배'];
 
     targetSchedules.forEach(s => {
@@ -27,8 +27,8 @@ export function SpecialPerformanceSchedule() {
 
       const endDate = parseISO(s.endDate);
       const afterSunday = nextSunday(endDate);
+      const isDomestic = s.location.includes('공동체') || s.location.includes('드림');
 
-      // 캠프 로직
       if (s.type === '캠프') {
         events.push({
           id: `${s.id}-video`,
@@ -39,9 +39,6 @@ export function SpecialPerformanceSchedule() {
         });
         return;
       }
-
-      // 아웃리치 로직
-      const isDomestic = s.location.includes('공동체') || s.location.includes('드림');
 
       const startDate = parseISO(s.startDate);
       const beforeSunday = isSunday(startDate) ? startDate : previousSunday(startDate);
@@ -59,36 +56,84 @@ export function SpecialPerformanceSchedule() {
         services: sendingServices
       });
 
-      events.push({
-        id: `${s.id}-after-testimony`,
-        date: afterSunday,
-        outreach: s,
-        eventType: '간증',
-        services: ALL_SERVICES
-      });
+      if (!isDomestic) {
+        events.push({
+          id: `${s.id}-after-testimony`,
+          date: afterSunday,
+          outreach: s,
+          eventType: '간증',
+          services: ALL_SERVICES
+        });
 
-      events.push({
-        id: `${s.id}-after-video`,
-        date: afterSunday,
-        outreach: s,
-        eventType: '영상',
-        services: ALL_SERVICES
-      });
+        events.push({
+          id: `${s.id}-after-video`,
+          date: afterSunday,
+          outreach: s,
+          eventType: '영상',
+          services: ALL_SERVICES
+        });
+      }
     });
 
-    const manualEvents: DerivedEvent[] = [
-      { id: 'm1', date: parseISO('2026-07-26'), customTitle: '드림콰이어 2부', eventType: '특순', services: ['2부 예배'] },
-      { id: 'm2', date: parseISO('2026-08-09'), customTitle: '드림콰이어 2부', eventType: '특순', services: ['2부 예배'] },
-      { id: 'm3', date: parseISO('2026-08-16'), customTitle: '드림콰이어 2부', eventType: '특순', services: ['2부 예배'] },
-      { id: 'm4', date: parseISO('2026-08-16'), customTitle: '드림콰이어 3부', eventType: '특순', services: ['3부 예배'] },
-      { id: 'm5', date: parseISO('2026-08-23'), customTitle: '드림콰이어 3부', eventType: '특순', services: ['3부 예배'] },
-      { id: 'm6', date: parseISO('2026-08-30'), customTitle: '드림콰이어 3부', eventType: '특순', services: ['3부 예배'] },
+    const overrideDates = [
+      '2026-07-26',
+      '2026-08-02',
+      '2026-08-09',
+      '2026-08-16',
+      '2026-08-23',
+      '2026-08-30'
     ];
     
+    events = events.filter(e => !overrideDates.includes(format(e.date, 'yyyy-MM-dd')));
+
+    const getS = (id: string) => SCHEDULES.find(s => s.id === id);
+    const o_rwanda = getS('o2');
+    const c_kids = getS('c2_1');
+    const c_teens = getS('c2_2');
+    const c_allstar = getS('c3');
+    const o_phil_camb = getS('o4');
+    const o_nepal = getS('o3');
+    const o_yohan = getS('o9');
+    const o_maga = getS('o7');
+
+    const overrides: DerivedEvent[] = [];
+    const addOverride = (dateStr: string, outreach: any, eventType: '파송' | '특순' | '간증' | '영상', services: ServiceType[], customTitle?: string) => {
+      overrides.push({ id: `ov-${dateStr}-${outreach?.id || 'none'}-${eventType}-${services[0]}`, date: parseISO(dateStr), outreach, eventType, services, customTitle });
+    };
+
+    addOverride('2026-07-26', o_rwanda, '영상', ['1부 예배', '2부 예배', '3부 예배', '성수 예배']);
+    addOverride('2026-07-26', o_rwanda, '간증', ['1부 예배', '2부 예배', '3부 예배', '성수 예배']);
+    addOverride('2026-07-26', undefined, '특순', ['2부 예배'], '드림콰이어 2부');
+    addOverride('2026-07-26', o_maga, '특순', ['3부 예배']);
+
+    addOverride('2026-08-02', c_kids, '영상', ['1부 예배', '2부 예배', '3부 예배', '성수 예배']);
+    addOverride('2026-08-02', c_teens, '영상', ['1부 예배', '2부 예배', '3부 예배', '성수 예배']);
+    addOverride('2026-08-02', c_teens, '간증', ['1부 예배', '2부 예배', '3부 예배', '성수 예배']);
+
+    addOverride('2026-08-09', undefined, '특순', ['2부 예배'], '드림콰이어 2부');
+    addOverride('2026-08-09', o_yohan, '특순', ['2부 예배'], '요한공동체 아웃리치팀 (특순 및 파송)');
+    addOverride('2026-08-09', o_phil_camb, '파송', ['3부 예배'], '필리핀, 캄보디아 아웃리치팀');
+    addOverride('2026-08-09', o_nepal, '파송', ['3부 예배']);
+
+    addOverride('2026-08-16', c_allstar, '영상', ['1부 예배', '2부 예배', '3부 예배', '성수 예배']);
+    addOverride('2026-08-16', undefined, '특순', ['2부 예배'], '드림콰이어 2부');
+    addOverride('2026-08-16', undefined, '특순', ['3부 예배'], '드림콰이어 3부');
+
+    addOverride('2026-08-23', o_phil_camb, '영상', ['1부 예배', '2부 예배'], '캄보디아 아웃리치팀');
+    addOverride('2026-08-23', o_phil_camb, '간증', ['1부 예배', '2부 예배'], '캄보디아 아웃리치팀');
+    addOverride('2026-08-23', o_nepal, '영상', ['3부 예배', '성수 예배']);
+    addOverride('2026-08-23', o_nepal, '간증', ['3부 예배', '성수 예배']);
+
+    addOverride('2026-08-30', o_phil_camb, '영상', ['1부 예배', '2부 예배', '3부 예배'], '필리핀 아웃리치팀');
+    addOverride('2026-08-30', o_phil_camb, '간증', ['1부 예배', '2부 예배', '3부 예배'], '필리핀 아웃리치팀');
+    addOverride('2026-08-30', undefined, '특순', ['3부 예배'], '드림콰이어 3부');
+
+    events.push(...overrides);
+
     let current = parseISO('2026-09-06');
     const end = parseISO('2026-10-25');
     while (current <= end) {
-      manualEvents.push({
+      events.push({
         id: `dc2-${format(current, 'MMdd')}`,
         date: current,
         customTitle: '드림콰이어 2부',
@@ -97,7 +142,7 @@ export function SpecialPerformanceSchedule() {
       });
       
       if (format(current, 'yyyy-MM-dd') !== '2026-10-11') {
-        manualEvents.push({
+        events.push({
           id: `dc3-${format(current, 'MMdd')}`,
           date: current,
           customTitle: '드림콰이어 3부',
@@ -108,7 +153,6 @@ export function SpecialPerformanceSchedule() {
       
       current = nextSunday(current);
     }
-    events.push(...manualEvents);
 
     const groups: Record<string, Record<ServiceType, DerivedEvent[]>> = {};
     
@@ -181,7 +225,6 @@ export function SpecialPerformanceSchedule() {
   };
 
   const SERVICE_ORDER: ServiceType[] = ['1부 예배', '2부 예배', '3부 예배', '성수 예배'];
-
 
   const downloadCSV = () => {
     const headers = ['날짜', '예배', '분류', '내용', '일정', '참가자'];
@@ -358,7 +401,6 @@ export function SpecialPerformanceSchedule() {
                                       </div>
                                     )}
                                   </div>
-
                                 </div>
                               );
                             })}
