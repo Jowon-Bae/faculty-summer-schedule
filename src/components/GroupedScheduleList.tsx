@@ -62,7 +62,11 @@ export function GroupedScheduleList({ schedules }: GroupedScheduleListProps) {
                   <div key={schedule.id} style={{ display: 'flex', flexDirection: 'column', paddingLeft: '4px' }}>
                     <div style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--color-text-main)', marginBottom: '4px' }}>
                       {dateStr}
-                      {schedule.location && schedule.location !== '개인일정' && (
+                      {schedule.customLabel ? (
+                        <span style={{ fontWeight: 500, color: 'var(--color-primary-deep)', marginLeft: '6px', fontSize: '0.85rem', backgroundColor: 'var(--color-bg)', padding: '2px 6px', borderRadius: '4px' }}>
+                          {schedule.customLabel}
+                        </span>
+                      ) : schedule.location && schedule.location !== '개인일정' && (
                         <span style={{ fontWeight: 400, color: 'var(--color-text-muted)' }}>
                           {' '}• {schedule.location}
                         </span>

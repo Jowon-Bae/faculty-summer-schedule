@@ -19,7 +19,7 @@ export const SCHEDULES: Schedule[] = [
   { id: 'v5', type: '휴가', startDate: '2026-08-03', endDate: '2026-08-15', participants: ['10'], location: '개인일정' },
   { id: 'v6', type: '휴가', startDate: '2026-08-10', endDate: '2026-08-22', participants: ['11'], location: '개인일정' },
   { id: 'v12', type: '휴가', startDate: '2026-08-17', endDate: '2026-08-22', participants: ['12'], location: '개인일정' },
-  { id: 'v13', type: '휴가', startDate: '2026-09-07', endDate: '2026-09-15', participants: ['12'], location: '개인일정', customLabel: '개인일정 (9/15(화)은 월차)' },
+  { id: 'v13', type: '휴가', startDate: '2026-09-07', endDate: '2026-09-15', participants: ['12'], location: '개인일정', customLabel: '9/15(화)은 월차' },
   { id: 'v7', type: '휴가', startDate: '2026-08-17', endDate: '2026-08-29', participants: ['13', '14'], location: '개인일정' },
   { id: 'v8', type: '휴가', startDate: '2026-08-24', endDate: '2026-09-05', participants: ['15', '16', '17', '8'], location: '개인일정' },
   { id: 'v9', type: '휴가', startDate: '2026-07-20', endDate: '2026-08-01', participants: ['18', '21'], location: '개인일정' },
