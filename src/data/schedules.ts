@@ -44,7 +44,7 @@ export const SCHEDULES: Schedule[] = [
   { id: 'r2', type: '기타 사역', startDate: '2026-06-12', endDate: '2026-06-12', participants: ['23', '11'], location: '결혼식 주례' },
   { id: 'r3', type: '기타 사역', startDate: '2026-06-19', endDate: '2026-06-21', participants: ['23'], location: '필리핀 선교지 방문' },
   { id: 'r4', type: '기타 사역', startDate: '2026-06-19', endDate: '2026-06-21', participants: ['11', '21'], location: '남성 사역 리트릿' },
-  { id: 'r5', type: '기타 사역', startDate: '2026-08-24', endDate: '2026-09-04', participants: ['23'], location: '아프리카 선교지 방문' },
+  { id: 'r5', type: '기타 사역', startDate: '2026-08-25', endDate: '2026-08-30', participants: ['23'], location: '아프리카 선교지 방문' },
   { id: 'r6', type: '기타 사역', startDate: '2026-07-06', endDate: '2026-07-11', participants: ['24', '21'], location: '백두산 여행' },
   { id: 'r7', type: '기타 사역', startDate: '2026-07-13', endDate: '2026-07-17', participants: ['23'], location: '일본 일정' },
   { id: 'r8', type: '기타 사역', startDate: '2026-07-30', endDate: '2026-08-01', participants: ['8'], location: '코너스톤' },
