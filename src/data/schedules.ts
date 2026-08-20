@@ -54,4 +54,5 @@ export const SCHEDULES: Schedule[] = [
   { id: 'c2_1', type: '캠프', startDate: '2026-07-24', endDate: '2026-07-26', participants: ['8', '15', '4'], location: '드림키즈' },
   { id: 'c2_2', type: '캠프', startDate: '2026-07-24', endDate: '2026-07-26', participants: ['17', '6', '20', '5'], location: '드림틴즈' },
   { id: 'c3', type: '캠프', startDate: '2026-08-07', endDate: '2026-08-09', participants: ['17', '16', '13', '14'], location: '올스타' },
+  { id: 'r9', type: '기타 사역', startDate: '2026-08-25', endDate: '2026-09-05', participants: ['21'], location: '중동 해외사역 관련 출장' },
 ];
