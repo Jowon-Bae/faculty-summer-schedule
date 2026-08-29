@@ -56,4 +56,8 @@ export const SCHEDULES: Schedule[] = [
   { id: 'c3', type: '캠프', startDate: '2026-08-07', endDate: '2026-08-09', participants: ['17', '16', '13', '14'], location: '올스타' },
   { id: 'r9', type: '기타 사역', startDate: '2026-08-25', endDate: '2026-09-05', participants: ['21'], location: '중동 해외사역 관련 출장' },
   { id: 'r10', type: '기타 사역', startDate: '2026-09-28', endDate: '2026-10-08', participants: ['1'], location: '호주 교회 탐방(플래닛쉐이커즈 처치, 힐송 처치)' },
+  { id: 'r11', type: '기타 사역', startDate: '2026-09-04', endDate: '2026-09-04', participants: ['23'], location: '출장' },
+  { id: 'r12', type: '기타 사역', startDate: '2026-09-18', endDate: '2026-09-18', participants: ['23'], location: '출장' },
+  { id: 'r13', type: '기타 사역', startDate: '2026-10-09', endDate: '2026-10-09', participants: ['23'], location: '출장' },
+  { id: 'r14', type: '기타 사역', startDate: '2026-10-23', endDate: '2026-10-23', participants: ['23'], location: '출장' },
 ];
