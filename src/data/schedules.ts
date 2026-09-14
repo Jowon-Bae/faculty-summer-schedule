@@ -63,5 +63,5 @@ export const SCHEDULES: Schedule[] = [
   { id: 'r15', type: '기타 사역', startDate: '2026-10-19', endDate: '2026-10-28', participants: ['24', '21', '3', '22'], location: '성지순례' },
   { id: 'r16', type: '기타 사역', startDate: '2026-09-20', endDate: '2026-09-20', participants: ['24', '7'], location: '위브릿지 동행교회 연합 기차 여행' },
   { id: 'o11', type: '아웃리치', startDate: '2026-10-16', endDate: '2026-10-23', participants: ['1'], location: '인도' },
-  { id: 'o12', type: '아웃리치', startDate: '2026-10-16', endDate: '2026-10-28', participants: ['11'], location: '인도' },
+  { id: 'o12', type: '아웃리치', startDate: '2026-10-16', endDate: '2026-10-27', participants: ['11'], location: '인도' },
 ];
